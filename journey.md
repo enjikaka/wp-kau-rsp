@@ -12,3 +12,7 @@ Adding the custom post type, metaboxes and the saving was otherwise quite trivia
 
 ## Step 2 - Centralized Research Hub
 
+I need a view for a list of research projects, but it's also nice if the project has a small view of it's own so I'm trying to add that. Creating a `single-research-project.php` in the directory of the plugin did not work. Some googling seems to indicate I need to register a template myself instead. Attempting that!
+
+Got it to work. Moving on to making the list. I think I'll do a shortcode for that.
+

@@ -99,3 +99,16 @@ function save_research_project_meta($post_id)
   }
 }
 add_action('save_post', 'save_research_project_meta');
+
+function load_research_project_template($template)
+{
+  global $post;
+
+  if ($post->post_type == 'research-project') {
+    $template = trailingslashit(plugin_dir_path(__FILE__)) . 'templates/single-research-project.php';
+  }
+
+  return $template;
+}
+
+add_filter('single_template', 'load_research_project_template');
