@@ -8,7 +8,6 @@ License: MIT
 */
 
 /**
- * Include WordPress functions
  * @package WordPress
  */
 
@@ -42,9 +41,13 @@ add_action('add_meta_boxes', 'add_research_project_meta_boxes');
 
 function display_research_project_meta($post)
 {
+  $initial_value_department = get_post_meta($post->ID, 'department', true);
   $initial_value_researchers = get_post_meta($post->ID, 'researchers', true);
   $initial_value_research_status = get_post_meta($post->ID, 'research_status', true);
 
+  $current_blog_id = strval(get_current_blog_id());
+
+  $department = (isset($initial_value_department)) ? $initial_value_department : $current_blog_id;
 ?>
   <style>
     .wp-kau-rsp-table,
@@ -62,6 +65,10 @@ function display_research_project_meta($post)
     }
   </style>
   <table class="wp-kau-rsp-table">
+    <tr>
+      <td><label for="department">Department:</label></td>
+      <td><input type="text" id="department" name="department" value="<?php echo esc_attr($department); ?>" disabled="disabled" /></td>
+    </tr>
     <tr>
       <td><label for="researchers">Researchers:</label></td>
       <td><input type="text" id="researchers" name="researchers" value="<?php echo esc_attr($initial_value_researchers); ?>" /></td>
