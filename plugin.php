@@ -46,8 +46,6 @@ function display_research_project_meta($post)
   $initial_value_research_status = get_post_meta($post->ID, 'research_status', true);
 
   $current_blog_id = strval(get_current_blog_id());
-
-  $department = (isset($initial_value_department)) ? $initial_value_department : $current_blog_id;
 ?>
   <style>
     .wp-kau-rsp-table,
@@ -64,10 +62,11 @@ function display_research_project_meta($post)
       flex: 1;
     }
   </style>
+  <?php  echo json_encode(get_post_meta($post->ID)) ?>
   <table class="wp-kau-rsp-table">
     <tr>
       <td><label for="department">Department:</label></td>
-      <td><input type="text" id="department" name="department" value="<?php echo esc_attr($department); ?>" disabled="disabled" /></td>
+      <td><input type="text" id="department" name="department" value="<?php echo esc_attr($initial_value_department); ?>" disabled="disabled" /></td>
     </tr>
     <tr>
       <td><label for="researchers">Researchers:</label></td>
@@ -88,6 +87,9 @@ function display_research_project_meta($post)
 
 function save_research_project_meta($post_id)
 {
+  $current_site_id = get_current_blog_id();
+  update_post_meta($post_id, 'department', $current_site_id);
+  
   if (array_key_exists('researchers', $_POST)) {
     update_post_meta($post_id, 'researchers', sanitize_text_field($_POST['researchers']));
   }
