@@ -13,7 +13,7 @@ License: MIT
 
 function create_research_project_post_type()
 {
-  register_post_type('research_project', array(
+  register_post_type('research-project', array(
     'labels' => array(
       'name' => __('Research Projects'),
       'singular_name' => __('Research Project')
@@ -32,7 +32,7 @@ function add_research_project_meta_boxes()
     'research_project_details',
     'Research Project Details',
     'display_research_project_meta',
-    'research_project',
+    'research-project',
     'normal',
     'default'
   );
@@ -62,7 +62,7 @@ function display_research_project_meta($post)
       flex: 1;
     }
   </style>
-  <?php  echo json_encode(get_post_meta($post->ID)) ?>
+  <?php echo json_encode(get_post_meta($post->ID)) ?>
   <table class="wp-kau-rsp-table">
     <tr>
       <td><label for="department">Department:</label></td>
@@ -89,7 +89,7 @@ function save_research_project_meta($post_id)
 {
   $current_site_id = get_current_blog_id();
   update_post_meta($post_id, 'department', $current_site_id);
-  
+
   if (array_key_exists('researchers', $_POST)) {
     update_post_meta($post_id, 'researchers', sanitize_text_field($_POST['researchers']));
   }
