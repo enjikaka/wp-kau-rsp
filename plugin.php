@@ -1,4 +1,7 @@
 <?php
+
+include("shortcode.php");
+
 /*
 Plugin Name: KAU Research Searching Platform (RSP) Plugin
 Description: Track research projects
@@ -31,25 +34,10 @@ class WPKauRSP
       'supports' => array('title', 'excerpt')
     ));
 
-    add_shortcode('list_research_projects', array($this, 'render_published_research_projects'));
+    new WPKauRSPShortcode();
     add_action('add_meta_boxes', array($this, 'add_research_project_meta_boxes'));
     add_action('save_post', array($this, 'save_research_project_meta'));
     add_filter('single_template', array($this, 'load_research_project_template'));
-  }
-
-  function render_published_research_projects()
-  {
-    $projects = $this->get_research_projects_from_all_sites();
-
-    $string = '<ul>';
-    foreach ($projects as $project) {
-      $string .= '<li>' . $project['title'] . '</li>';
-    }
-    $string .= '</ul>';
-
-    wp_reset_postdata();
-
-    return $string;
   }
 
   function add_research_project_meta_boxes()
@@ -123,47 +111,15 @@ class WPKauRSP
   }
 
   function load_research_project_template($template)
-{
-  global $post;
+  {
+    global $post;
 
-  if ($post->post_type == 'research-project') {
-    $template = trailingslashit(plugin_dir_path(__FILE__)) . 'templates/single-research-project.php';
-  }
-
-  return $template;
-}
-
-function get_research_projects_from_all_sites()
-{
-  $sites = get_sites();
-  $blog_posts = array();
-
-  if ($sites) {
-    foreach ($sites as $site) {
-      switch_to_blog($site->blog_id);
-      $args = array(
-        'post_type' => 'research-project',
-        'post_status' => 'publish'
-      );
-
-      $query = new WP_Query($args);
-      if ($query->have_posts()) {
-        while ($query->have_posts()) {
-          $query->the_post();
-          $blog_posts[] = array(
-            'title' => get_the_title(),
-            'researchers' => get_post_meta(get_the_ID(), 'researchers', true),
-            'research_status' => get_post_meta(get_the_ID(), 'research_status', true),
-            'department' => $site->blog_id
-          );
-        }
-      }
+    if ($post->post_type == 'research-project') {
+      $template = trailingslashit(plugin_dir_path(__FILE__)) . 'templates/single-research-project.php';
     }
-  }
 
-  restore_current_blog();
-  return $blog_posts;
-}
+    return $template;
+  }
 }
 
 new WPKauRSP();
