@@ -16,3 +16,5 @@ I need a view for a list of research projects, but it's also nice if the project
 
 Got it to work. Moving on to making the list. I think I'll do a shortcode for that.
 
+Shortcode is working. I need some nice designs for so I'll encapsulate that in a web components. Gotta use wp_enqueue_scripts for that it seems, so now we're starting to have quite a few bits to do for each step. So I'm thinking it's time to start extracting bits from the main plugin.php file into other files; and use classes to organize everything...
+
