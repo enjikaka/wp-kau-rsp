@@ -18,4 +18,4 @@ Got it to work. Moving on to making the list. I think I'll do a shortcode for th
 
 Shortcode is working. I need some nice designs for so I'll encapsulate that in a web component. Gotta use wp_enqueue_scripts for that it seems, so now we're starting to have quite a few bits to do for each step. So I'm thinking it's time to start extracting bits from the main plugin.php file into other files; and use classes to organize everything...
 
-Moved everything into a WPKauRSP class now.
+Moved everything into a WPKauRSP class now. Also excracted the shortcode-code to it's own class in its own file.
