@@ -17,7 +17,7 @@ class WPKauRSPShortcode
             $maybeDepartmentInformation = isset($project['departmentPath']) ? <<<HTML
                 <a href="{$project['departmentPath']}" slot="department">{$project['departmentName']}</a>
             HTML : '';
-            
+
             return <<<HTML
                 <li>
                     <research-project-card research-status="{$project['research_status']}">
