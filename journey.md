@@ -23,3 +23,9 @@ Moved everything into a WPKauRSP class now. Also excracted the shortcode-code to
 Bummer, the WordPress sanitizer is doing weird stuff and moving the code returned by the shortcode method around when using a custom element or div as the outer element returned in the string... I give up and use UL instead.
 
 Managed to get some web components involved if I render them inside the `<li>`; so I created a `<research-project-card>` element to contain style and scripts needed on a per-card basis.
+
+## Step 3 - Publishing and Visibility
+
+Modified the shortcode to list all published projects for site id 1, and all drafts and published projects for departments.
+
+## Step 4 - Role-Based Access

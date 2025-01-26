@@ -10,10 +10,14 @@ class WPKauRSPShortcode
 
     function render()
     {
-
-        $projects = $this->get_research_projects_from_all_sites();
+        $projects = get_current_blog_id() == 1 ? $this->get_published_research_projects_from_all_sites() : $this->get_all_research_projects_from_department();
+        $header = get_current_blog_id() == 1 ? 'Published Research Projects' : 'Our Research Projects';
 
         $listItems = implode('', array_map(function ($project) {
+            $maybeDepartmentInformation = isset($project['departmentPath']) ? <<<HTML
+                <a href="{$project['departmentPath']}" slot="department">{$project['departmentName']}</a>
+            HTML : '';
+            
             return <<<HTML
                 <li>
                     <research-project-card research-status="{$project['research_status']}">
@@ -21,7 +25,7 @@ class WPKauRSPShortcode
                             {$project['title']}
                         </a>
                         <p slot="excerpt">{$project['excerpt']}</p>
-                        <a href="{$project['departmentPath']}" slot="department">{$project['departmentName']}</a>
+                        {$maybeDepartmentInformation}
                     </research-project-card>
                 </li>
             HTML;
@@ -29,7 +33,7 @@ class WPKauRSPShortcode
 
         $string = <<<HTML
             <div class="research-projects-list-wrapper">
-                <strong>Published Research Projects</strong>
+                <strong>{$header}</strong>
                 <ul>{$listItems}</ul>
             </div>
         HTML;
@@ -38,7 +42,37 @@ class WPKauRSPShortcode
         return $string;
     }
 
-    function get_research_projects_from_all_sites()
+    function get_all_research_projects_from_department()
+    {
+        $blog_posts = array();
+
+        $args = array(
+            'post_type' => 'research-project',
+            'post_status' => 'any'
+        );
+
+        if (get_current_blog_id() == 1) {
+            $args['post_status'] = 'publish';
+        }
+
+        $query = new WP_Query($args);
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                $blog_posts[] = array(
+                    'href' => get_the_permalink(),
+                    'title' => get_the_title(),
+                    'excerpt' => get_the_excerpt(),
+                    'researchers' => get_post_meta(get_the_ID(), 'researchers', true),
+                    'research_status' => get_post_meta(get_the_ID(), 'research_status', true)
+                );
+            }
+        }
+
+        return $blog_posts;
+    }
+
+    function get_published_research_projects_from_all_sites()
     {
         $sites = get_sites();
         $blog_posts = array();
