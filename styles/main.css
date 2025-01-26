@@ -1,0 +1,32 @@
+@import url('https://fonts.cdnfonts.com/css/univers-lt-std');
+@import url('https://fonts.cdnfonts.com/css/univers-next-pro-extended');
+
+:root {
+    --kau-yellow: oklch(0.86 0.18 97.13);
+}
+
+.research-projects-list-wrapper {
+    background-color: var(--kau-yellow);
+    padding: 30px;
+    border-radius: var(--qgr);
+    font-family: 'Univers Next Pro', sans-serif;
+
+    & strong {
+        text-transform: uppercase;
+        padding-bottom: 15px;
+        border-bottom: 2px solid black;
+        display: block;
+        font-family: 'Univers LT Std', sans-serif;
+    }
+
+    & ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-flow: column;
+
+        & li:not(:last-child) {
+            border-bottom: 2px dotted black;
+        }
+    }
+}

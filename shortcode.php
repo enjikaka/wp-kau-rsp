@@ -3,21 +3,38 @@ class WPKauRSPShortcode
 {
     public function __construct()
     {
+        wp_enqueue_script('web-component__research-project-card', plugins_url('web-components/research-project-card.js', __FILE__));
+        wp_enqueue_style('wp-kau-rsp__shortcode__main-styles', plugins_url('styles/main.css', __FILE__));
         add_shortcode('list_research_projects', array($this, 'render'));
     }
 
     function render()
     {
+
         $projects = $this->get_research_projects_from_all_sites();
 
-        $string = '<ul>';
-        foreach ($projects as $project) {
-            $string .= '<li>' . $project['title'] . '</li>';
-        }
-        $string .= '</ul>';
+        $listItems = implode('', array_map(function ($project) {
+            return <<<HTML
+                <li>
+                    <research-project-card research-status="{$project['research_status']}">
+                        <a href="{$project['href']}" slot="title">
+                            {$project['title']}
+                        </a>
+                        <p slot="excerpt">{$project['excerpt']}</p>
+                        <a href="{$project['departmentPath']}" slot="department">{$project['departmentName']}</a>
+                    </research-project-card>
+                </li>
+            HTML;
+        }, $projects));
+
+        $string = <<<HTML
+            <div class="research-projects-list-wrapper">
+                <strong>Published Research Projects</strong>
+                <ul>{$listItems}</ul>
+            </div>
+        HTML;
 
         wp_reset_postdata();
-
         return $string;
     }
 
@@ -39,10 +56,14 @@ class WPKauRSPShortcode
                     while ($query->have_posts()) {
                         $query->the_post();
                         $blog_posts[] = array(
+                            'href' => get_the_permalink(),
                             'title' => get_the_title(),
+                            'excerpt' => get_the_excerpt(),
                             'researchers' => get_post_meta(get_the_ID(), 'researchers', true),
                             'research_status' => get_post_meta(get_the_ID(), 'research_status', true),
-                            'department' => $site->blog_id
+                            'departmentName' => get_blog_details($site->blog_id)->blogname,
+                            'departmentPath' => get_blog_details($site->blog_id)->siteurl,
+                            'departmentId' => $site->blog_id,
                         );
                     }
                 }
