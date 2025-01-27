@@ -3,6 +3,7 @@ class WPKauRSP_Shortcode
 {
     public function __construct()
     {
+        wp_enqueue_script('web-component__research-projects-list', plugins_url('web-components/research-projects-list.js', __FILE__));
         wp_enqueue_script('web-component__research-project-card', plugins_url('web-components/research-project-card.js', __FILE__));
         wp_enqueue_style('wp-kau-rsp__shortcode__main-styles', plugins_url('styles/main.css', __FILE__));
         add_shortcode('list_research_projects', array($this, 'render'));
@@ -21,7 +22,7 @@ class WPKauRSP_Shortcode
             HTML : '';
 
             return <<<HTML
-                <li>
+                <li data-department-id="{$project['departmentId']}" part="list-item">
                     <research-project-card research-status="{$project['research_status']}">
                         <a href="{$project['href']}" slot="title">
                             {$project['title']}
@@ -34,10 +35,15 @@ class WPKauRSP_Shortcode
             HTML;
         }, $projects));
 
+        $shadow_dom_template = file_get_contents(plugin_dir_path(__FILE__) . 'web-components/research-projects-list.html');
+
         $string = <<<HTML
             <div class="research-projects-list-wrapper">
-                <strong>{$header}</strong>
-                <ul>{$listItems}</ul>
+                <research-projects-list>
+                    {$shadow_dom_template}
+                    <strong slot="title">{$header}</strong>
+                    <ul slot="list">{$listItems}</ul>
+                </research-projects-list>
             </div>
         HTML;
 

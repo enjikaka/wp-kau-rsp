@@ -49,17 +49,29 @@ class WPKauRSP_Plugin
     ));
 
     add_filter('single_template', array($this, 'load_research_project_template'));
-    // add_action('rest_api_init', array($this, 'register_rest_route'));
+    add_action('rest_api_init', array($this, 'register_rest_route'));
 
     new WPKauRSP_Shortcode();
     new WPKauRSP_Metaboxes();
     new WPKauRSP_UserRoles();
   }
 
-  function register_rest_route() {
+  function handle_rest_research_projects()
+  {
+    $projects = WPKauRSP_Helpers::get_published_research_projects_from_all_sites();
+    $departments = WPKauRSP_Helpers::get_departments();
+
+    return array(
+      "projects" => $projects,
+      "departments" => $departments
+    );
+  }
+
+  function register_rest_route()
+  {
     register_rest_route('wp-kau-rsp/v1', '/research-projects', array(
       'methods' => 'GET',
-      'callback' => 'WPKauRSP_Helpers::get_research_projects',
+      'callback' => array($this, 'handle_rest_research_projects'),
     ));
   }
 

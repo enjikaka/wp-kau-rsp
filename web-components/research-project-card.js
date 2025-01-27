@@ -1,7 +1,7 @@
 const html = String.raw;
 
 customElements.define('research-project-card', class extends HTMLElement {
-    connectedCallback () {
+    connectedCallback() {
         this.sDOM = this.attachShadow({
             mode: 'closed'
         });

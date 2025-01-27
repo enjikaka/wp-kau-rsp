@@ -55,6 +55,8 @@ I don't see where sync comes in? I just retrieve and render the data.
 
 I set "show_in_rest" to true in the beginning. Also added "rest_base". The endpoints work on each sub-site; e.g. /handelshogskolan/wp-json/wp/v2/research-projects but not on the main site. I need to research how to get that one working properly...
 
+Created a custom endpoint with `register_rest_route` that returns all published projects from all departments.
+
 # Step 8
 
 TODO

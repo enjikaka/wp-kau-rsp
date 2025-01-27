@@ -1,6 +1,24 @@
 <?php
 
-class WPKauRSP_Helpers {
+class WPKauRSP_Helpers
+{
+    public static function get_departments()
+    {
+        $sites = get_sites();
+        $departments = array();
+
+        if ($sites) {
+            foreach ($sites as $site) {
+                $departments[] = array(
+                    'name' => get_blog_details($site->blog_id)->blogname,
+                    'id' => $site->blog_id
+                );
+            }
+        }
+
+        return array_slice($departments, 1);
+    }
+
     public static function get_all_research_projects_from_department($current_blog_id)
     {
         $blog_posts = array();
