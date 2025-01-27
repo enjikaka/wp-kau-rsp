@@ -78,7 +78,7 @@ class ResearchProjectsList extends HTMLElement {
             return;
         }
 
-        this.filterBy('status', status);
+        this.filterBy('research-status', status);
     }
 
     /**

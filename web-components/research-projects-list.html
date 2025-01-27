@@ -56,12 +56,16 @@
             display: block;
             margin-block: 8px 0;
         }
+
+        :host(:not([filter-by-department])) #filter-by-department {
+            display: none;
+        }
     </style>
     <style id="temp-filter"></style>
     <slot name="title"></slot>
     <form>
         <input id="search" type="search" placeholder="Filter...">
-        <label>
+        <label id="filter-by-department">
             Visa endast projekt från:
             <select name="department" id="department">
                 <option value="1">Alla</option>

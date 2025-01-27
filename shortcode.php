@@ -41,9 +41,12 @@ class WPKauRSP_Shortcode
 
         $shadow_dom_template = file_get_contents(plugin_dir_path(__FILE__) . 'web-components/research-projects-list.html');
 
+        // If we're one a department site, do not enable the filtr by department option in the research-projects-list component
+        $maybeFilterByDepartment = $is_main_site ? 'filter-by-department="filter-by-department"' : '';
+
         $string = <<<HTML
             <div class="research-projects-list-wrapper">
-                <research-projects-list>
+                <research-projects-list {$maybeFilterByDepartment}>
                     {$shadow_dom_template}
                     <strong slot="title">{$header}</strong>
                     <ul slot="list">{$listItems}</ul>
