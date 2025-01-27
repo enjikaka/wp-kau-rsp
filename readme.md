@@ -25,6 +25,8 @@ Each research project gets it's own single page view:
 
 You can get a list of projects and departments on `/wp-json/wp-kau-rsp/v1/research-project`.
 
+The respone conforms to this JSON schema:
+
 ```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
