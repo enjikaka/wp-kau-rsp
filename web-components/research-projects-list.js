@@ -37,6 +37,18 @@ class ResearchProjectsList extends HTMLElement {
         });
     }
 
+    clearFilter () {
+        this.$('#temp-filter').textContent = '';
+    }
+
+    filterBy (attribute, value) {
+        this.$('#temp-filter').textContent = `
+            li:not([data-${attribute}="${value}"]) {
+                display: none;
+            }
+        `;
+    }
+
     /**
      * 
      * @param {InputEvent} event 
@@ -46,15 +58,11 @@ class ResearchProjectsList extends HTMLElement {
 
         // Show all items if the department id is 1 (main site)
         if (event.target.value === "1") {
-            this.$('#temp-filter').textContent = '';
+            this.clearFilter();
             return;
         }
 
-        this.$('#temp-filter').textContent = `
-            li:not([data-department-id="${departmentId}"]) {
-                display: none;
-            }
-        `;
+        this.filterBy('department-id', departmentId);
     }
 
     /**
@@ -66,15 +74,11 @@ class ResearchProjectsList extends HTMLElement {
 
         // Show all items if the department id is 1 (main site)
         if (event.target.value === "all") {
-            this.$('#temp-filter').textContent = '';
+            this.clearFilter();
             return;
         }
 
-        this.$('#temp-filter').textContent = `
-            li:not([data-research-status="${status}"]) {
-                display: none;
-            }
-        `;
+        this.filterBy('research-status', status);
     }
 
     registerEventListeners() {
