@@ -1,6 +1,9 @@
 <?php
 get_header();
 
+wp_enqueue_style('wp-kau-rsp__shortcode__main-styles', plugins_url('styles/main.css', __FILE__));
+wp_enqueue_style('wp-kau-rsp__single-research-project__styles', plugins_url('../styles/single-research-project.css', __FILE__));
+
 if (have_posts()) {
     while (have_posts()) {
         the_post();
@@ -10,21 +13,19 @@ if (have_posts()) {
             <header>
                 <h1><?php the_title(); ?></h1>
             </header>
-            <div>
-                <?php the_content(); ?>
+            <div class="content">
+                <?php the_excerpt(); ?>
             </div>
-            <div>
-                <h2>Department</h2>
-                <p><?php echo get_post_meta(get_the_ID(), 'department', true); ?></p>
-            </div>
-            <div>
-                <h2>Researchers</h2>
-                <p><?php echo get_post_meta(get_the_ID(), 'researchers', true); ?></p>
-            </div>
-            <div>
-                <h2>Status</h2>
-                <p><?php echo get_post_meta(get_the_ID(), 'research_status', true); ?></p>
-            </div>
+            <dl>
+                <dt>Department</dt>
+                <dd><?php echo get_post_meta(get_the_ID(), 'department', true); ?></dd>
+
+                <dt>Researchers</dt>
+                <dd><?php echo get_post_meta(get_the_ID(), 'researchers', true); ?></dd>
+
+                <dt>Status</dt>
+                <dd><?php echo get_post_meta(get_the_ID(), 'research_status', true); ?></dd>
+            </dl>
         </article>
 <?php
     }

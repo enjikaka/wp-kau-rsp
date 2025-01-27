@@ -1,0 +1,38 @@
+article {
+    margin: 1em auto;
+    width: 800px;
+    font-family: 'Univers Next Pro', sans-serif;
+    background-color: #f6f6f6;
+
+    & .content {
+        padding: 15px;
+    }
+
+    & header {
+        background-color: oklch(0.86 0.18 97.13);
+        color: black;
+        padding: 30px 30px 15px 30px;
+    
+        & h1 {
+            margin: 0;
+        }
+    }
+    
+    & h1 {
+        font-family: 'Univers LT Std', sans-serif;
+    }
+
+    & dl {
+        border: 1px solid black;
+        margin: 1rem;
+        padding: 1rem;
+        font-size: 14px;
+        background-color: oklch(0.86 0.18 97.13);
+
+        & dt {
+            font-family: 'Univers LT Std', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+    }
+}
