@@ -8,9 +8,10 @@ The `[list-research-projects]` shortcode will list posts with the custom post ty
 
 On the main site in your multisite network the shortcode with render with sorting by subsite/department:
 
-![](https://i.imgur.com/vtW0wKy.png)
+<img src="https://i.imgur.com/vtW0wKy.png" width="300">
 
 If the short code is used on a sub-site the filter by department option will not be rendered:
 
-![](https://i.imgur.com/OxegDPD.png)
+<img src="https://i.imgur.com/OxegDPD.png" width="300">
+
 
