@@ -24,3 +24,77 @@ Each research project gets it's own single page view:
 ## REST Endpoint
 
 You can get a list of projects and departments on `/wp-json/wp-kau-rsp/v1/research-project`.
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "excerpt": {
+            "type": "string"
+          },
+          "researchers": {
+            "type": "string"
+          },
+          "research_status": {
+            "type": "string"
+          },
+          "departmentName": {
+            "type": "string"
+          },
+          "departmentPath": {
+            "type": "string"
+          },
+          "departmentId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "href",
+          "title",
+          "excerpt",
+          "researchers",
+          "research_status",
+          "departmentName",
+          "departmentPath",
+          "departmentId"
+        ]
+      }
+    },
+    "departments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "id"
+        ]
+      }
+    }
+  },
+  "required": [
+    "projects",
+    "departments"
+  ]
+}
+```
