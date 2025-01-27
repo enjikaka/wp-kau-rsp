@@ -1,6 +1,7 @@
 <?php
 
-include("shortcode.php");
+include('shortcode.php');
+include('metaboxes.php');
 
 /*
 Plugin Name: KAU Research Searching Platform (RSP) Plugin
@@ -15,7 +16,7 @@ License: MIT
  */
 
 
-class WPKauRSP
+class WPKauRSP_Plugin
 {
   public function __construct()
   {
@@ -34,80 +35,10 @@ class WPKauRSP
       'supports' => array('title', 'excerpt')
     ));
 
-    new WPKauRSPShortcode();
-    add_action('add_meta_boxes', array($this, 'add_research_project_meta_boxes'));
-    add_action('save_post', array($this, 'save_research_project_meta'));
+    new Shortcode();
+    new Metaboxes();
+
     add_filter('single_template', array($this, 'load_research_project_template'));
-  }
-
-  function add_research_project_meta_boxes()
-  {
-    add_meta_box(
-      'research_project_details',
-      'Research Project Details',
-      array($this, 'display_research_project_meta'),
-      'research-project',
-      'normal',
-      'default'
-    );
-  }
-
-  function display_research_project_meta($post)
-  {
-    $initial_value_department = get_post_meta($post->ID, 'department', true);
-    $initial_value_researchers = get_post_meta($post->ID, 'researchers', true);
-    $initial_value_research_status = get_post_meta($post->ID, 'research_status', true);
-?>
-    <style>
-      .wp-kau-rsp-table,
-      .wp-kau-rsp-table input,
-      .wp-kau-rsp-table select {
-        width: 100%;
-      }
-
-      .wp-kau-rsp-table tr {
-        display: flex;
-      }
-
-      .wp-kau-rsp-table td {
-        flex: 1;
-      }
-    </style>
-    <?php echo json_encode(get_post_meta($post->ID)) ?>
-    <table class="wp-kau-rsp-table">
-      <tr>
-        <td><label for="department">Department:</label></td>
-        <td><input type="text" id="department" name="department" value="<?php echo esc_attr($initial_value_department); ?>" disabled="disabled" /></td>
-      </tr>
-      <tr>
-        <td><label for="researchers">Researchers:</label></td>
-        <td><input type="text" id="researchers" name="researchers" value="<?php echo esc_attr($initial_value_researchers); ?>" /></td>
-      </tr>
-      <tr>
-        <td><label for="research_status">Status:</label></td>
-        <td>
-          <select id="research_status" name="research_status">
-            <option value="in_progress" <?php if ($initial_value_research_status == 'in_progress') echo 'selected'; ?>>In Progress</option>
-            <option value="completed" <?php if ($initial_value_research_status == 'completed') echo 'selected'; ?>>Completed</option>
-          </select>
-        </td>
-      </tr>
-    </table>
-<?php
-  }
-
-  function save_research_project_meta($post_id)
-  {
-    $current_site_id = get_current_blog_id();
-    update_post_meta($post_id, 'department', $current_site_id);
-
-    if (array_key_exists('researchers', $_POST)) {
-      update_post_meta($post_id, 'researchers', sanitize_text_field($_POST['researchers']));
-    }
-
-    if (array_key_exists('research_status', $_POST)) {
-      update_post_meta($post_id, 'research_status', $_POST['research_status']);
-    }
   }
 
   function load_research_project_template($template)
@@ -122,4 +53,4 @@ class WPKauRSP
   }
 }
 
-new WPKauRSP();
+new WPKauRSP_Plugin();

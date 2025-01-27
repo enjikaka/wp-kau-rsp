@@ -1,5 +1,5 @@
 <?php
-class WPKauRSPShortcode
+class Shortcode
 {
     public function __construct()
     {

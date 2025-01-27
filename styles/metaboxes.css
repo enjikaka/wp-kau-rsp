@@ -1,0 +1,13 @@
+.wp-kau-rsp-table,
+.wp-kau-rsp-table input,
+.wp-kau-rsp-table select {
+    width: 100%;
+}
+
+.wp-kau-rsp-table tr {
+    display: flex;
+}
+
+.wp-kau-rsp-table td {
+    flex: 1;
+}
