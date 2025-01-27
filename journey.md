@@ -24,6 +24,8 @@ Bummer, the WordPress sanitizer is doing weird stuff and moving the code returne
 
 Managed to get some web components involved if I render them inside the `<li>`; so I created a `<research-project-card>` element to contain style and scripts needed on a per-card basis.
 
+Managed to get a `<research-projects-list>` web component in after a while. Added the filtering logic to that.
+
 ## Step 3 - Publishing and Visibility
 
 Modified the shortcode to list all published projects for site id 1, and all drafts and published projects for departments.
