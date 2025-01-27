@@ -15,3 +15,6 @@ If the short code is used on a sub-site the filter by department option will not
 <img src="https://i.imgur.com/OxegDPD.png" width="300">
 
 
+## REST Endpoint
+
+You can get a list of projects and departments on `/wp-json/wp-kau-rsp/v1/research-project`.
