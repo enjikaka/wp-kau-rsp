@@ -1,6 +1,6 @@
 <?php
 
-class Metaboxes
+class WPKauRSP_Metaboxes
 {
     public function __construct()
     {
@@ -9,7 +9,7 @@ class Metaboxes
         wp_enqueue_style('wp-kau-rsp__metaboxs__styles', plugins_url('styles/metaboxes.css', __FILE__));
     }
 
-    public function add_meta_boxes()
+    function add_meta_boxes()
     {
         add_meta_box(
             'research_project_details',
@@ -21,7 +21,7 @@ class Metaboxes
         );
     }
 
-    public function save_post($post_id)
+    function save_post($post_id)
     {
         $current_site_id = get_current_blog_id();
         update_post_meta($post_id, 'department', $current_site_id);
@@ -35,7 +35,7 @@ class Metaboxes
         }
     }
 
-    public function display_meta_boxes($post)
+    function display_meta_boxes($post)
     {
         $initial_value_department = get_post_meta($post->ID, 'department', true);
         $initial_value_researchers = get_post_meta($post->ID, 'researchers', true);

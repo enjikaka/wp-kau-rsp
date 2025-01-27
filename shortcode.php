@@ -1,5 +1,5 @@
 <?php
-class Shortcode
+class WPKauRSP_Shortcode
 {
     public function __construct()
     {
@@ -27,6 +27,7 @@ class Shortcode
                         </a>
                         <p slot="excerpt">{$project['excerpt']}</p>
                         {$maybeDepartmentInformation}
+                        <span slot="researchers">{$project['researchers']}</span>
                     </research-project-card>
                 </li>
             HTML;

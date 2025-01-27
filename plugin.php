@@ -34,11 +34,9 @@ class WPKauRSP_Plugin
       'show_in_rest' => true,
       'supports' => array('title', 'excerpt')
     ));
-
-    new Shortcode();
-    new Metaboxes();
-
     add_filter('single_template', array($this, 'load_research_project_template'));
+    new WPKauRSP_Shortcode();
+    new WPKauRSP_Metaboxes();
   }
 
   function load_research_project_template($template)

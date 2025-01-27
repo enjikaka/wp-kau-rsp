@@ -24,6 +24,12 @@ customElements.define('research-project-card', class extends HTMLElement {
 
         ::slotted(p) {
             margin: 0;
+            text-align: justify;
+            hyphens: auto;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
         }
 
         :host small ::slotted(a[slot]) {
@@ -34,14 +40,15 @@ customElements.define('research-project-card', class extends HTMLElement {
             }
         }
 
+        footer {
+            display: flex;
+            flex-flow: row wrap;
+            align-items: center;
+            gap: .5rem;
+        }
+
         #badge {
             margin: 0;
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            place-items: center;
 
             & span {
                 background-color: #F6F6F6;
@@ -58,8 +65,11 @@ customElements.define('research-project-card', class extends HTMLElement {
         <small><slot name="department"></slot></small><br>
         <strong><slot name="title"></slot></strong>
         <slot name="excerpt"></slot>
-        <figure id="badge"><span></span></figure>
+        <footer>
+            <figure id="badge"><span></span></figure>
+            <small><slot name="researchers"></slot></small>
+        </footer>
         `;
-        this.sDOM.querySelector('#badge span').innerHTML = this.getAttribute('research-status') === 'in_progress' ? 'In Progress' : 'Completed';
+        this.sDOM.querySelector('#badge span').innerHTML = this.getAttribute('research-status') === 'in_progress' ? 'Pågående' : 'Avslutad';
     }
 });
