@@ -20,13 +20,13 @@ class ResearchProjectsList extends HTMLElement {
 
         this.renderDepartmentOptions();
         this.registerEventListeners();
-        this.copyListItems();
+        this.moveListItems();
     }
 
     /**
      * Move the slotted ul form light dom into the shadow dom to enable styling of list items.
      */
-    copyListItems() {
+    moveListItems() {
         const slot = this.$('slot[name="list"]');
         const nodes = slot.assignedNodes();
 
@@ -41,7 +41,7 @@ class ResearchProjectsList extends HTMLElement {
      * 
      * @param {InputEvent} event 
      */
-    handleDepartmentChange(event) {
+    handleSelectDepartment(event) {
         const departmentId = event.target.value;
 
         // Show all items if the department id is 1 (main site)
@@ -57,11 +57,36 @@ class ResearchProjectsList extends HTMLElement {
         `;
     }
 
+    /**
+     * 
+     * @param {InputEvent} event 
+     */
+    handleSelectStatus(event) {
+        const status = event.target.value;
+
+        // Show all items if the department id is 1 (main site)
+        if (event.target.value === "all") {
+            this.$('#temp-filter').textContent = '';
+            return;
+        }
+
+        this.$('#temp-filter').textContent = `
+            li:not([data-research-status="${status}"]) {
+                display: none;
+            }
+        `;
+    }
+
     registerEventListeners() {
         const $selectDepartment = this.$('#department');
+        const $selectStatus = this.$('#status');
 
         if ($selectDepartment) {
-            $selectDepartment.addEventListener('input', event => this.handleDepartmentChange(event));
+            $selectDepartment.addEventListener('input', event => this.handleSelectDepartment(event));
+        }
+
+        if ($selectStatus) {
+            $selectStatus.addEventListener('input', event => this.handleSelectStatus(event));
         }
     }
 

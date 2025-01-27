@@ -22,7 +22,7 @@ class WPKauRSP_Shortcode
             HTML : '';
 
             return <<<HTML
-                <li data-department-id="{$project['departmentId']}" part="list-item">
+                <li data-department-id="{$project['departmentId']}" data-research-status="{$project['research_status']}">
                     <research-project-card research-status="{$project['research_status']}">
                         <a href="{$project['href']}" slot="title">
                             {$project['title']}

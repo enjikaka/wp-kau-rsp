@@ -42,12 +42,19 @@
             border-bottom: 2px dotted black;
         }
 
+        select,
         input {
             background-color: #F6F6F6;
             width: 100%;
             border-radius: 5px;
             padding: 5px;
             border: none;
+        }
+
+        label {
+            font-size: 12px;
+            display: block;
+            margin-block: 8px 0;
         }
     </style>
     <style id="temp-filter"></style>
@@ -58,6 +65,14 @@
             Visa endast projekt från:
             <select name="department" id="department">
                 <option value="1">Alla</option>
+            </select>
+        </label>
+        <label>
+            Visa endast med status:
+            <select name="status" id="status">
+                <option value="all">Alla</option>
+                <option value="in_progress">Pågående</option>
+                <option value="completed">Avslutad</option>
             </select>
         </label>
     </form>
