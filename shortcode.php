@@ -10,8 +10,9 @@ class Shortcode
 
     function render()
     {
-        $projects = get_current_blog_id() == 1 ? $this->get_published_research_projects_from_all_sites() : $this->get_all_research_projects_from_department();
-        $header = get_current_blog_id() == 1 ? 'Published Research Projects' : 'Our Research Projects';
+        $is_main_site = get_current_blog_id() == 1;
+        $projects = $is_main_site ? $this->get_published_research_projects_from_all_sites() : $this->get_all_research_projects_from_department();
+        $header = $is_main_site ? 'Published Research Projects' : 'Our Research Projects';
 
         $listItems = implode('', array_map(function ($project) {
             $maybeDepartmentInformation = isset($project['departmentPath']) ? <<<HTML
