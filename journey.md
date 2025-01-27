@@ -36,3 +36,29 @@ Filled in 5 research projects each for Handelshögskolan and Institutionen för 
 
 ## Step 4 - Role-Based Access
 
+The roles specified in the task already overlaps quite well with the default roles in WordPress. I'll create special permissions for research project-posting and assing it to the roles.
+
+Researchers -> Författare
+Coordinator -> Redaktör
+Admin -> Admin
+View -> a logged out user should be enough?
+
+# Step 5
+
+I believe the custom post type, the metaboxes and native listing of these in the WP UI basically covers this? 
+
+# Step 6
+
+I don't see where sync comes in? I just retrieve and render the data.
+
+# Step 7
+
+I set "show_in_rest" to true in the beginning. Also added "rest_base". The endpoints work on each sub-site; e.g. /handelshogskolan/wp-json/wp/v2/research-projects but not on the main site. I need to research how to get that one working properly...
+
+# Step 8
+
+TODO
+
+# Step 9
+
+TODO
