@@ -21,8 +21,12 @@ class WPKauRSP_Shortcode
                 <a href="{$project['departmentPath']}" slot="department">{$project['departmentName']}</a>
             HTML : '';
 
+            $text = strtolower($project['title'] . $project['excerpt']);
+            $text = str_replace(array("\r", "\n"), '', $text);
+            $text = esc_attr($text);
+
             return <<<HTML
-                <li data-department-id="{$project['departmentId']}" data-research-status="{$project['research_status']}">
+                <li data-text="{$text}" data-department-id="{$project['departmentId']}" data-research-status="{$project['research_status']}">
                     <research-project-card research-status="{$project['research_status']}">
                         <a href="{$project['href']}" slot="title">
                             {$project['title']}

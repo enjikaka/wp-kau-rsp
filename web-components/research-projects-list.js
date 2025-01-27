@@ -41,9 +41,9 @@ class ResearchProjectsList extends HTMLElement {
         this.$('#temp-filter').textContent = '';
     }
 
-    filterBy (attribute, value) {
+    filterBy (attribute, value, match = '') {
         this.$('#temp-filter').textContent = `
-            li:not([data-${attribute}="${value}"]) {
+            li:not([data-${attribute}${match}="${value}"]) {
                 display: none;
             }
         `;
@@ -78,12 +78,28 @@ class ResearchProjectsList extends HTMLElement {
             return;
         }
 
-        this.filterBy('research-status', status);
+        this.filterBy('status', status);
+    }
+
+    /**
+     * 
+     * @param {InputEvent} event 
+     */
+    handleSearchFilter(event) {
+        const query = event.target.value;
+
+        if (event.target.value === "") {
+            this.clearFilter();
+            return;
+        }
+
+        this.filterBy('text', query, '*');
     }
 
     registerEventListeners() {
         const $selectDepartment = this.$('#department');
         const $selectStatus = this.$('#status');
+        const $inputSearch = this.$('#search');
 
         if ($selectDepartment) {
             $selectDepartment.addEventListener('input', event => this.handleSelectDepartment(event));
@@ -91,6 +107,10 @@ class ResearchProjectsList extends HTMLElement {
 
         if ($selectStatus) {
             $selectStatus.addEventListener('input', event => this.handleSelectStatus(event));
+        }
+
+        if ($inputSearch) {
+            $inputSearch.addEventListener('input', event => this.handleSearchFilter(event));
         }
     }
 
